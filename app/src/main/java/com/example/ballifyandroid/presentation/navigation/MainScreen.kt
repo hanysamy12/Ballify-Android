@@ -1,6 +1,5 @@
 package com.example.ballifyandroid.presentation.navigation
 
-import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
