@@ -16,6 +16,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.ballifyandroid.presentation.screens.favoriteScreen.FavoriteScreen
+import com.example.ballifyandroid.presentation.screens.leaguesScreen.LeaguesScreen
 import com.example.ballifyandroid.presentation.screens.sportsScreen.SportsScreen
 
 @Preview
@@ -42,11 +43,16 @@ fun MainScreen() {
             modifier = Modifier.padding(contentPadding),
             ) {
             composable(ScreenRoute.Sports.route) {
-                SportsScreen()
+                SportsScreen(setToBar = { topBar -> topBarContent.value = topBar }, navController = navController)
             }
             composable(ScreenRoute.Favourites.route)
             {
                 FavoriteScreen()
+            }
+            composable <ScreenRoute.Leagues>
+            {backStackEntry ->
+                val leagueName = backStackEntry.arguments?.getString("leagueName")
+                LeaguesScreen(leagueName ?:"", setTopBar = {topBarContent.value = it})
             }
         }
 

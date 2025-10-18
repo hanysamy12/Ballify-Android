@@ -10,7 +10,7 @@ sealed class ScreenRoute (val route: String){
     @Serializable
     data object Favourites: ScreenRoute("favourites")
     @Serializable
-    data object Leagues: ScreenRoute("leagues")
+    data class Leagues(val leagueName: String): ScreenRoute("leagues/{leagueName}")
     @Serializable
     data object LeagueDetails: ScreenRoute("leagueDetails")
     @Serializable
