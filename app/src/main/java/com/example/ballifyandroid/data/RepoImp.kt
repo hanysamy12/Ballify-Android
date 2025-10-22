@@ -18,9 +18,10 @@ class RepoImp @Inject constructor(private val remoteDataSource: IRemoteDataSourc
     override suspend fun getLeagueFixtures(
         leagueName: String,
         from: String,
-        to: String
+        to: String,
+        leagueId: Int
     ): FixtureResponse {
-        return remoteDataSource.getLeagueFixtures(leagueName, from, to)
+        return remoteDataSource.getLeagueFixtures(leagueName, from, to, leagueId)
     }
 
     override suspend fun getLeagueTeams(leagueName: String, leagueId: Int): TeamResponse {

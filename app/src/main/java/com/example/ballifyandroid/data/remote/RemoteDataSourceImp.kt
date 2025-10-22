@@ -13,8 +13,8 @@ class RemoteDataSourceImp @Inject constructor(private val apiService: ApiService
         return apiService.getLeagues(sportName)
     }
 
-    override suspend fun getLeagueFixtures(leagueName: String,from : String,to : String): FixtureResponse {
-        return apiService.getFixtures(sportType = leagueName,from= from, to = to)
+    override suspend fun getLeagueFixtures(leagueName: String,from : String,to : String,leagueId : Int): FixtureResponse {
+        return apiService.getFixtures(sportType = leagueName,from= from, to = to, leagueId = leagueId)
     }
 
     override suspend fun getLeagueTeams(leagueName: String,leagueId : Int): TeamResponse {

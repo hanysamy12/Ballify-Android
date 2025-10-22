@@ -20,6 +20,7 @@ interface ApiService {
         @Query("met") met: String = "Fixtures",
         @Query("from") from: String,
         @Query("to") to: String,
+        @Query("leagueId") leagueId: Int,
     ): FixtureResponse
 
     @GET("{sportType}")

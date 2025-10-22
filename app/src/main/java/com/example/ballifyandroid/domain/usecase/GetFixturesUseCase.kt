@@ -4,9 +4,10 @@ import com.example.ballifyandroid.domain.repo.IRepo
 import javax.inject.Inject
 
 class GetFixturesUseCase @Inject constructor(private val repo : IRepo) {
-    suspend operator fun invoke(leagueName : String,from :String,to : String) = repo.getLeagueFixtures(
+    suspend operator fun invoke(leagueName : String,from :String,to : String,leagueId : Int) = repo.getLeagueFixtures(
         leagueName = leagueName,
         from = from,
-        to = to
+        to = to,
+        leagueId = leagueId
     )
 }
