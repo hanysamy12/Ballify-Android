@@ -24,9 +24,11 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import androidx.navigation.NavController
 import com.example.ballifyandroid.R
 import com.example.ballifyandroid.presentation.ApiResponse
 import com.example.ballifyandroid.presentation.components.RowImageName
+import com.example.ballifyandroid.presentation.navigation.ScreenRoute
 
 private const val TAG = "LeaguesScreen"
 
@@ -35,7 +37,8 @@ private const val TAG = "LeaguesScreen"
 fun LeaguesScreen(
     league: String,
     setTopBar: (@Composable () -> Unit) -> Unit,
-    viewModel: LeaguesViewModel = hiltViewModel()
+    viewModel: LeaguesViewModel = hiltViewModel(),
+    navController: NavController
 ) {
     val uiState by viewModel.leagues.collectAsState()
 
@@ -80,8 +83,19 @@ fun LeaguesScreen(
         is ApiResponse.Success -> {
             val leagues = (uiState as ApiResponse.Success).data
             LazyColumn(
-                modifier = Modifier.fillMaxSize().padding(5.dp),
-            ) { items(leagues) { league -> RowImageName(league) } }
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(5.dp),
+            ) {
+                items(leagues) { league ->
+                    RowImageName(league, onLeagueClick = { leagueKey ->
+                        Log.i(TAG, "LeaguesScreen: $leagueKey")
+                        navController.navigate(ScreenRoute.LeagueDetails)
+
+                    }
+                    )
+                }
+            }
         }
     }
 
