@@ -16,12 +16,13 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.ballifyandroid.presentation.screens.favoriteScreen.FavoriteScreen
+import com.example.ballifyandroid.presentation.screens.leagueDetailsScreen.LeagueDetailsScreen
 import com.example.ballifyandroid.presentation.screens.leaguesScreen.LeaguesScreen
 import com.example.ballifyandroid.presentation.screens.sportsScreen.SportsScreen
 
-@Preview
+
 @Composable
-fun MainScreen() {
+fun MainScreen(screenDimensions : Pair<Float, Float>) {
     val navController = rememberNavController()
     val currentBackStackEntry by navController.currentBackStackEntryAsState()
     currentBackStackEntry?.destination?.route
@@ -41,18 +42,30 @@ fun MainScreen() {
             navController = navController,
             startDestination = startDestination.value,
             modifier = Modifier.padding(contentPadding),
-            ) {
+        ) {
             composable(ScreenRoute.Sports.route) {
-                SportsScreen(setToBar = { topBar -> topBarContent.value = topBar }, navController = navController)
+                SportsScreen(
+                    setToBar = { topBar -> topBarContent.value = topBar },
+                    navController = navController
+                )
             }
             composable(ScreenRoute.Favourites.route)
             {
                 FavoriteScreen()
             }
-            composable <ScreenRoute.Leagues>
-            {backStackEntry ->
+            composable<ScreenRoute.Leagues>
+            { backStackEntry ->
                 val leagueName = backStackEntry.arguments?.getString("leagueName")
-                LeaguesScreen(leagueName ?:"", setTopBar = {topBarContent.value = it})
+                LeaguesScreen(
+                    leagueName ?: "",
+                    setTopBar = { topBarContent.value = it },
+                    navController = navController
+                )
+            }
+            composable<ScreenRoute.LeagueDetails>
+            {backStackEntry ->
+                val leagueKey = backStackEntry.arguments?.getInt("leagueKey")
+                LeagueDetailsScreen(screenDimensions)
             }
         }
 

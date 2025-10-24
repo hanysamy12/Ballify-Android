@@ -21,7 +21,6 @@ import androidx.navigation.NavController
 import com.example.ballifyandroid.R
 import com.example.ballifyandroid.presentation.navigation.ScreenRoute
 
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SportsScreen(setToBar: (@Composable () -> Unit) -> Unit,navController: NavController) {
