@@ -26,7 +26,7 @@ interface ApiService {
     @GET("{sportType}")
     suspend fun getTeam(
         @Path("sportType") sportType: String,
-        @Query("met") met: String = "Team",
+        @Query("met") met: String = "Teams",
         @Query("leagueId") leagueId: Int,
     ): TeamResponse
 }

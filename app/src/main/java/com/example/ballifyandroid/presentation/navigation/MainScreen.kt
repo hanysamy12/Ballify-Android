@@ -64,8 +64,8 @@ fun MainScreen(screenDimensions : Pair<Float, Float>) {
             }
             composable<ScreenRoute.LeagueDetails>
             {backStackEntry ->
-                val leagueKey = backStackEntry.arguments?.getInt("leagueKey")
-                LeagueDetailsScreen(screenDimensions)
+                val leagueKey = backStackEntry.arguments?.getInt("leagueId")
+                LeagueDetailsScreen(screenDimensions,leagueKey ?: -1)
             }
         }
 

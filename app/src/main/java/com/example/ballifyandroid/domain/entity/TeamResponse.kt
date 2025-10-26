@@ -11,7 +11,7 @@ data class Team(
 	val coaches: List<CoachesItem?>? = null,
 	val players: List<PlayersItem?>? = null,
 	@SerializedName("team_key")
-	val teamKey: Int? = null,
+	val teamKey: Number? = null,
 	@SerializedName("team_name")
 	val teamName: String? = null,
 	@SerializedName("team_logo")
@@ -25,7 +25,7 @@ data class CoachesItem(
 
 data class PlayersItem(
 	@SerializedName("player_key")
-	val playerKey: Int? = null,
+	val playerKey: Number? = null,
 	@SerializedName("player_number")
 	val playerNumber: String? = null,
 	@SerializedName("player_image")

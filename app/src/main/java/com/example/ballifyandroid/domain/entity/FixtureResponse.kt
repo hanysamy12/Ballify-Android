@@ -16,9 +16,9 @@ data class Fixture(
 	val eventHomeTeam: String? = null,
 	@SerializedName("home_team_key")
 	val homeTeamKey: Int? = null,
-	@SerializedName("event_home_team_logo")
+	@SerializedName("home_team_logo")
 	val eventHomeTeamLogo: String? = null,
-	@SerializedName("event_away_team_logo")
+	@SerializedName("away_team_logo")
 	val eventAwayTeamLogo: String? = null,
 	@SerializedName("event_date")
 	val eventDate: String? = null,
@@ -28,7 +28,7 @@ data class Fixture(
 	val leagueKey: Int? = null,
 	@SerializedName("event_time")
 	val eventTime: String? = null,
-	@SerializedName("event_away_Team")
+	@SerializedName("event_away_team")
 	val eventAwayTeam: String? = null,
 	@SerializedName("event_status")
 	val eventStatus: String? = null

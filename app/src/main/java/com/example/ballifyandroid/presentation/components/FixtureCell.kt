@@ -22,10 +22,12 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.AsyncImage
 import com.example.ballifyandroid.R
+import com.example.ballifyandroid.domain.entity.Fixture
 
 @Composable
-fun FixtureCell(screenDimensions: Pair<Float, Float>) {
+fun FixtureCell(screenDimensions: Pair<Float, Float>,fixture: Fixture) {
     val (width, height) = screenDimensions
      val rowHeight = if(height/4 <100) 200f else height/4
     Row(
@@ -42,15 +44,15 @@ fun FixtureCell(screenDimensions: Pair<Float, Float>) {
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Image(
-                painter = painterResource(id = R.drawable.personal_logo),
-                contentDescription = "team Name",
+            AsyncImage(
+                model = fixture.eventHomeTeamLogo,
+                contentDescription = fixture.eventHomeTeam,
                 modifier = Modifier
                     .size(60.dp)
                     .clip(CircleShape)
             )
             Spacer(Modifier.height(10.dp))
-            Text("League Name", fontSize = 15.sp, textAlign = TextAlign.Center)
+            Text(fixture.eventHomeTeam ?:"no available", fontSize = 15.sp, textAlign = TextAlign.Center)
         }
         Column(
             modifier = Modifier
@@ -65,16 +67,18 @@ fun FixtureCell(screenDimensions: Pair<Float, Float>) {
                 modifier = Modifier.size(50.dp)
             )
             Spacer(Modifier.height(7.dp))
-            Text(
-                "4 - 1",
-                fontSize = 20.sp,
-                textAlign = TextAlign.Center,
-                color = colorResource(R.color.green_500)
-            )
+            fixture.eventFinalResult?.let {
+                Text(
+                    it,
+                    fontSize = 20.sp,
+                    textAlign = TextAlign.Center,
+                    color = colorResource(R.color.green_500)
+                )
+            }
             Spacer(Modifier.height(2.dp))
-            Text("20-10-2025", fontSize = 15.sp, textAlign = TextAlign.Center)
+            Text(fixture.eventDate ?:"not available", fontSize = 15.sp, textAlign = TextAlign.Center)
             Spacer(Modifier.height(2.dp))
-            Text("04:00", fontSize = 15.sp, textAlign = TextAlign.Center)
+            Text(fixture.eventTime ?:"not available", fontSize = 15.sp, textAlign = TextAlign.Center)
 
         }
         Column(
@@ -84,15 +88,15 @@ fun FixtureCell(screenDimensions: Pair<Float, Float>) {
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Image(
-                painter = painterResource(id = R.drawable.personal_logo),
-                contentDescription = "team Name",
+            AsyncImage(
+                model = fixture.eventAwayTeamLogo,
+                contentDescription = fixture.eventAwayTeam,
                 modifier = Modifier
                     .size(60.dp)
                     .clip(CircleShape)
             )
             Spacer(Modifier.height(10.dp))
-            Text("League Name", fontSize = 15.sp, textAlign = TextAlign.Center)
+            Text(fixture.eventAwayTeam ?:"not available", fontSize = 15.sp, textAlign = TextAlign.Center)
         }
     }
 }

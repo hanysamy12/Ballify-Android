@@ -90,7 +90,7 @@ fun LeaguesScreen(
                 items(leagues) { league ->
                     RowImageName(league, onLeagueClick = { leagueKey ->
                         Log.i(TAG, "LeaguesScreen: $leagueKey")
-                        navController.navigate(ScreenRoute.LeagueDetails)
+                        navController.navigate(ScreenRoute.LeagueDetails(leagueKey))
 
                     }
                     )

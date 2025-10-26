@@ -12,7 +12,7 @@ sealed class ScreenRoute (val route: String){
     @Serializable
     data class Leagues(val leagueName: String): ScreenRoute("leagues/{leagueName}")
     @Serializable
-    data object LeagueDetails: ScreenRoute("leagueDetails")
+    data class LeagueDetails(val leagueId : Int?): ScreenRoute("leagueDetails/{leagueId}")
     @Serializable
     data object Teams: ScreenRoute("teams")
     @Serializable
