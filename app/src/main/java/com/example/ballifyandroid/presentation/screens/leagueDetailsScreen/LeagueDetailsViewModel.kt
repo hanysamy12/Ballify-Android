@@ -1,5 +1,7 @@
 package com.example.ballifyandroid.presentation.screens.leagueDetailsScreen
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModel
 import com.example.ballifyandroid.domain.entity.Fixture
 import com.example.ballifyandroid.domain.entity.Team
@@ -10,6 +12,8 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 import javax.inject.Inject
 
 @HiltViewModel
@@ -26,11 +30,12 @@ class LeagueDetailsViewModel @Inject constructor(
     private val _teams = MutableStateFlow<ApiResponse<List<Team>>>(ApiResponse.Loading)
     val teams: MutableStateFlow<ApiResponse<List<Team>>> = _teams
 
-
-    suspend fun getAllFixtures(leagueId: Int) {
-        val sportName = "football"
-        val fromDate = "2025-10-10"
-        val toDate = "2025-10-20"
+    @RequiresApi(Build.VERSION_CODES.O)
+    suspend fun getAllFixtures(leagueId: Int, sportName : String) {
+        val formater = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+        val currentDate = LocalDate.now()
+        val fromDate = currentDate.minusDays(5).format(formater)
+        val toDate = currentDate.plusDays(9).format(formater)
         try {
             getFixturesUseCase.invoke(
                 sportName = sportName,
@@ -42,9 +47,11 @@ class LeagueDetailsViewModel @Inject constructor(
                     _upcomingEvents.value = ApiResponse.Failure(it)
                     _latestEvents.value = ApiResponse.Failure(it)
                 }
-                .collect {
-                    _upcomingEvents.value = ApiResponse.Success(it)
-                    _latestEvents.value = ApiResponse.Success(it)
+                .collect { fixtures ->
+                    _upcomingEvents.value =
+                        ApiResponse.Success(fixtures.filter { it.eventFinalResult?.length == 1 }
+                        )
+                   _latestEvents.value = ApiResponse.Success(fixtures.filter { it.eventFinalResult?.length != 1 })
                 }
         } catch (e: Exception) {
             upcomingEvents.value = ApiResponse.Failure(e)

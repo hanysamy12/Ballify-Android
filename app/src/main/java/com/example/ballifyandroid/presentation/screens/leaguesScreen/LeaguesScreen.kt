@@ -35,7 +35,7 @@ private const val TAG = "LeaguesScreen"
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LeaguesScreen(
-    league: String,
+    sportName: String,
     setTopBar: (@Composable () -> Unit) -> Unit,
     viewModel: LeaguesViewModel = hiltViewModel(),
     navController: NavController
@@ -44,7 +44,7 @@ fun LeaguesScreen(
 
     LaunchedEffect(Unit) {
 
-        viewModel.getSportLeagues(league.lowercase())
+        viewModel.getSportLeagues(sportName.lowercase())
         setTopBar {
             CenterAlignedTopAppBar(
                 colors = TopAppBarDefaults.topAppBarColors(
@@ -52,7 +52,7 @@ fun LeaguesScreen(
                 ),
                 title = {
                     Text(
-                        league,
+                        sportName,
                         fontSize = 25.sp,
                         textAlign = TextAlign.Center,
                         color = Color.White
@@ -88,9 +88,15 @@ fun LeaguesScreen(
                     .padding(5.dp),
             ) {
                 items(leagues) { league ->
-                    RowImageName(league, onLeagueClick = { leagueKey ->
+                    RowImageName(league, onLeagueClick = { leagueKey, leagueName ->
                         Log.i(TAG, "LeaguesScreen: $leagueKey")
-                        navController.navigate(ScreenRoute.LeagueDetails(leagueKey))
+                        navController.navigate(
+                            ScreenRoute.LeagueDetails(
+                                sportName.lowercase(),
+                                leagueName,
+                                leagueKey
+                            )
+                        )
 
                     }
                     )

@@ -68,12 +68,14 @@ fun FixtureCell(screenDimensions: Pair<Float, Float>,fixture: Fixture) {
             )
             Spacer(Modifier.height(7.dp))
             fixture.eventFinalResult?.let {
-                Text(
-                    it,
-                    fontSize = 20.sp,
-                    textAlign = TextAlign.Center,
-                    color = colorResource(R.color.green_500)
-                )
+                if (it.length > 1) {
+                    Text(
+                        fixture.eventFinalResult,
+                        fontSize = 20.sp,
+                        textAlign = TextAlign.Center,
+                        color = colorResource(R.color.green_500)
+                    )
+                }
             }
             Spacer(Modifier.height(2.dp))
             Text(fixture.eventDate ?:"not available", fontSize = 15.sp, textAlign = TextAlign.Center)

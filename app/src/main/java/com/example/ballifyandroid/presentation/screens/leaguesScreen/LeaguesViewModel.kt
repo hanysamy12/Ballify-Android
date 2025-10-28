@@ -24,7 +24,9 @@ class LeaguesViewModel @Inject constructor(private val getSportLeaguesUseCase: G
 
                 .map { it.result.orEmpty().filterNotNull() }
                 .catch { _leagues.value = ApiResponse.Failure(it) }
-                .collect { _leagues.value = ApiResponse.Success(it) }
+                .collect {
+                    _leagues.value = ApiResponse.Success(it)
+                }
 
         }
         catch (e: Exception){

@@ -3,19 +3,25 @@ package com.example.ballifyandroid.presentation.navigation
 import kotlinx.serialization.Serializable
 
 @Serializable
-sealed class ScreenRoute (val route: String){
+sealed class ScreenRoute(val route: String) {
 
     @Serializable
-    data object Sports: ScreenRoute("allSports")
+    data object Sports : ScreenRoute("allSports")
+
     @Serializable
-    data object Favourites: ScreenRoute("favourites")
+    data object Favourites : ScreenRoute("favourites")
+
     @Serializable
-    data class Leagues(val leagueName: String): ScreenRoute("leagues/{leagueName}")
+    data class Leagues(val leagueName: String) : ScreenRoute("leagues/{leagueName}")
+
     @Serializable
-    data class LeagueDetails(val leagueId : Int?): ScreenRoute("leagueDetails/{leagueId}")
+    data class LeagueDetails(val sportName: String?,val leagueName: String?,val leagueId: Int?) :
+        ScreenRoute("leagueDetails/{sportName}/{leagueName}/{leagueId}")
+
     @Serializable
-    data object Teams: ScreenRoute("teams")
+    data object Teams : ScreenRoute("teams")
+
     @Serializable
-    data object TeamDetails: ScreenRoute("teamDetails")
+    data object TeamDetails : ScreenRoute("teamDetails")
 
 }

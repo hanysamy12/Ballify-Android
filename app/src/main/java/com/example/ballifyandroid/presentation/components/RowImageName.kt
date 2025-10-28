@@ -35,7 +35,7 @@ import com.example.ballifyandroid.domain.entity.League
 
 private const val TAG = "RowImageName"
 @Composable
- fun RowImageName(league: League,onLeagueClick: (leagueId:Int?) -> Unit) {
+ fun RowImageName(league: League,onLeagueClick: (leagueId:Int?,leagueName:String?) -> Unit) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -43,7 +43,7 @@ private const val TAG = "RowImageName"
             .clip(RoundedCornerShape(5.dp))
             .background(color = colorResource(R.color.light_gray))
             .clickable {
-                onLeagueClick(league.leagueKey)
+                onLeagueClick(league.leagueKey,league.leagueName)
             }
 
     ) {

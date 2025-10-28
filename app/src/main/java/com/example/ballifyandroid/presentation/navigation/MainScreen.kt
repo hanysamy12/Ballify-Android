@@ -1,5 +1,7 @@
 package com.example.ballifyandroid.presentation.navigation
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
@@ -21,8 +23,9 @@ import com.example.ballifyandroid.presentation.screens.leaguesScreen.LeaguesScre
 import com.example.ballifyandroid.presentation.screens.sportsScreen.SportsScreen
 
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun MainScreen(screenDimensions : Pair<Float, Float>) {
+fun MainScreen(screenDimensions: Pair<Float, Float>) {
     val navController = rememberNavController()
     val currentBackStackEntry by navController.currentBackStackEntryAsState()
     currentBackStackEntry?.destination?.route
@@ -55,17 +58,25 @@ fun MainScreen(screenDimensions : Pair<Float, Float>) {
             }
             composable<ScreenRoute.Leagues>
             { backStackEntry ->
-                val leagueName = backStackEntry.arguments?.getString("leagueName")
+                val sportName = backStackEntry.arguments?.getString("leagueName")
                 LeaguesScreen(
-                    leagueName ?: "",
+                    sportName ?: "",
                     setTopBar = { topBarContent.value = it },
                     navController = navController
                 )
             }
             composable<ScreenRoute.LeagueDetails>
-            {backStackEntry ->
+            { backStackEntry ->
                 val leagueKey = backStackEntry.arguments?.getInt("leagueId")
-                LeagueDetailsScreen(screenDimensions,leagueKey ?: -1)
+                val sportName = backStackEntry.arguments?.getString("sportName")
+                val leagueName = backStackEntry.arguments?.getString("leagueName")
+                LeagueDetailsScreen(
+                    setTopBar = { topBarContent.value = it },
+                    screenDimensions,
+                    sportName ?: "football",
+                    leagueName ?: "",
+                    leagueKey ?: -1
+                )
             }
         }
 
